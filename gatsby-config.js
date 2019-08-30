@@ -7,6 +7,15 @@ module.exports = {
   plugins: [
     `gatsby-plugin-react-helmet`,
     {
+      resolve: `gatsby-source-shopify`,
+      options: {
+        shopName: "gatsby-blowup",
+        accessToken: "93f664147035cd73ad2b1ff5b24a95ea",
+        verbose: true,
+        paginationSize: 250,
+      }
+    },
+    {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `images`,
