@@ -1,5 +1,6 @@
 import React from 'react'
 import { useStaticQuery, graphql } from "gatsby"
+import Product from "./Product"
 
 const PRODUCTS_LISTINGS_QUERY = graphql`
 query ProductsListingQuery {
@@ -8,6 +9,15 @@ query ProductsListingQuery {
       node {
         id
         title
+        images {
+          localFile {
+            childImageSharp {
+              fixed (width:400) {
+                ...GatsbyImageSharpFixed_withWebp_tracedSVG
+              }
+            }
+          }
+        }
         publishedAt(formatString: "YYYY")
         description
         descriptionHtml
@@ -24,11 +34,13 @@ query ProductsListingQuery {
 `
 
 const ProductsListing = () => {
-    const data = useStaticQuery(PRODUCTS_LISTINGS_QUERY)
-    console.log("data", data)
+    const { allShopifyProduct } = useStaticQuery(PRODUCTS_LISTINGS_QUERY)
+    console.log("allShopifyProduct", allShopifyProduct)
     return (
         <div>
-
+            {allShopifyProduct.edges.map(edge => (
+                <Product product={edge.node} key={edge.node.id} />
+            ))}
         </div>
     )
 }
