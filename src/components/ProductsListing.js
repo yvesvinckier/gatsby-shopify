@@ -9,6 +9,7 @@ query ProductsListingQuery {
       node {
         id
         title
+        handle
         images {
           localFile {
             childImageSharp {
@@ -34,15 +35,14 @@ query ProductsListingQuery {
 `
 
 const ProductsListing = () => {
-    const { allShopifyProduct } = useStaticQuery(PRODUCTS_LISTINGS_QUERY)
-    console.log("allShopifyProduct", allShopifyProduct)
-    return (
-        <div>
-            {allShopifyProduct.edges.map(edge => (
-                <Product product={edge.node} key={edge.node.id} />
-            ))}
-        </div>
-    )
+  const { allShopifyProduct } = useStaticQuery(PRODUCTS_LISTINGS_QUERY)
+  return (
+    <div>
+      {allShopifyProduct.edges.map(edge => (
+        <Product product={edge.node} key={edge.node.id} />
+      ))}
+    </div>
+  )
 }
 
 export default ProductsListing
